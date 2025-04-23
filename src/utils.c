@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/03/25 20:21:07 by ohaker           ###   ########.fr       */
+/*   Created: 2025/04/11 13:59:56 by ohaker            #+#    #+#             */
+/*   Updated: 2025/04/23 22:32:33 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FdF.h"
+#include "../fdf.h"
 
-int main(void)
+void my_pixel_put(t_data *data, int x, int y, int color)
 {
-	void *mlx;
-	// void *mlx_win;
+	char *dst;
 
-	mlx = mlx_init();
-	// mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello World!");
-	mlx_loop(mlx);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+int ft_count_lines(int fd)
+{
+	int count = 0;
+	char *line;
+
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		count++;
+		free(line);
+	}
+	return count;
 }
