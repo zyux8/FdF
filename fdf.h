@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/26 19:09:08 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/04/26 22:03:14 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_vars
 	void	*img;
 }	t_vars;
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 800
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"

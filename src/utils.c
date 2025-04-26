@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:59:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/26 21:22:32 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/04/26 22:07:57 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ void draw_line(t_data *data, int xS, int yS, int xE, int yE, int color)
 	err = diffx / 2;
 	while (xS != xE && yS != yE)
 	{
-		my_pixel_put(data, xS, yS, color);
-		err -= diffy;
-		if (err < 0)
+		if (xS >= 0 && yS >= 0 && xS < WIN_WIDTH && yS < WIN_HEIGHT)
+			my_pixel_put(data, xS, yS, color);
+		err *= 2;
+		if (err >= diffy)
 		{
-			yS += (diffy > 0) ? 1 : -1;
-			err += diffx;
+			err = (err / 2) + diffy;
+			xS += sx;
 		}
-		xS += (diffx > 0) ? 1 : -1;
+		if (err <= diffx)
+		{
+			err = (err / 2) +diffx;
+			yS += sy;
+		}
 	}
 }

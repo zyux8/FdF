@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/26 21:58:02 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/26 22:09:22 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "$(ORANGE)		- Compiling $(NAME)...$(NONE)"
-	@make -C minilibx-linux --silent
 	@make -C libft --silent
 	@make -C get_next_line --silent
+	@make -C minilibx-linux --silent
 	@gcc $(CFLAGS) $(OBJ) libft/libft.a get_next_line/get_next_line.a -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME) 
 	@echo "$(GREEN)		- $(NAME) Compiled -$(NONE)"
 	# @rm $(OBJ)
@@ -51,7 +51,7 @@ fclean: clean
 	@make fclean -C minilibx-linux
 	@make fclean -C libft
 	@make fclean -C get_next_line
-	@rm -rf $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
