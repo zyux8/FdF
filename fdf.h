@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/23 22:33:27 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/04/26 19:09:08 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
-typedef struct s_matrix
-{
-	int x;
-	int y;
-	int z;
-}	t_matrix;
+// typedef struct s_matrix
+// {
+// 	int x;
+// 	int y;
+// 	int z;
+// }	t_matrix;
 
 typedef struct s_map
 {
@@ -35,6 +35,13 @@ typedef struct s_map
 	int		height;
 	int		**z_matrix;
 }	t_map;
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+}	t_vars;
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
@@ -47,6 +54,7 @@ typedef struct s_map
 # include <unistd.h>
 # include <fcntl.h>
 
+void	draw_line(t_data *data, int xS, int yS, int xE, int yE, int color);
 void	my_pixel_put(t_data *data, int x, int y, int color);
 int		ft_count_lines(int fd);
 int		get_width(char *line);
