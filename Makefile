@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/26 21:45:59 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/26 21:49:07 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,10 +61,6 @@ mygit:
 	@echo "$(ORANGE)		- Waiting for commit message...$(NONE)"
 	@echo "Enter commit message:"; \
 	read input; \
-	if [ -z "$$input" ]; then \
-	  echo "Commit message cannot be empty!"; \
-	  exit 1; \
-	fi; \
 	git commit -m "$$input"
 	@git push origin main
 	@echo "$(GREEN)		- Pushed to git$(NONE)"
