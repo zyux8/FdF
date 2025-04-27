@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/26 22:09:22 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/27 14:51:39 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,5 @@ mygit:
 	git commit -m "$$input"
 	@git push origin main
 	@echo "$(GREEN)		- Pushed to git$(NONE)"
-
-
 
 .PHONY: all clean fclean re mygit
