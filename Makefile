@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/27 15:09:11 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/27 15:11:11 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ mygit:
 		echo "$(RED)		- No commit message entered. Exiting.$(NONE)"; \
 	else \
 		TIMESTAMP=$$(date '+%Y-%m-%d %H:%M'); \
-		git commit -m "$$input\nCommit date: $$TIMESTAMP"; \
+		git commit -m "$$input" -m "Commit date: $$TIMESTAMP"; \
 		git push origin main; \
 		echo "$(GREEN)		- Pushed to git$(NONE)"; \
 	fi
