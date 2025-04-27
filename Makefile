@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/27 14:51:39 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/27 14:57:37 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,12 @@ mygit:
 	@git status
 	@echo "$(ORANGE)		- Enter commit message:$(NONE)"; \
 	read input; \
-	git commit -m "$$input"
-	@git push origin main
-	@echo "$(GREEN)		- Pushed to git$(NONE)"
+	if [ -z "$$input" ]; then \
+		echo "$(RED)		- No commit message entered. Exiting.$(NONE)"; \
+	else \
+		git commit -m "$$input"; \
+		git push origin main; \
+		echo "$(GREEN)		- Pushed to git$(NONE)"; \
+	fi
 
 .PHONY: all clean fclean re mygit
