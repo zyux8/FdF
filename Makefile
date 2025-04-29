@@ -6,12 +6,17 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/27 15:11:11 by ohaker           ###   ########.fr        #
+#    Updated: 2025/04/28 21:05:09 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CFLAGS = -Wall -Wextra -O3 -Iincludes -I/usr/include -Iminilibx-linux
+LIBFT_DIR = libft
+GNL_DIR = get_next_line
+MLX_DIR = minilibx-linux
+LIBFT = libft/libft.a
+GNL = get_next_line/get_next_line.a
 SRC = $(addprefix src/, \
 	main.c \
 	utils.c )
@@ -26,14 +31,14 @@ ORANGE		= \033[33;01m
 
 .SILENT:
 
-all: $(NAME)
+all:	$(NAME)
 
 $(NAME): $(OBJ)
 	@echo "$(ORANGE)		- Compiling $(NAME)...$(NONE)"
 	@make -C libft --silent
 	@make -C get_next_line --silent
 	@make -C minilibx-linux --silent
-	@gcc $(CFLAGS) $(OBJ) libft/libft.a get_next_line/get_next_line.a -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME) 
+	gcc $(CFLAGS) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR) $(OBJ) $(GNL) $(LIBFT) -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -o $(NAME)
 	@echo "$(GREEN)		- $(NAME) Compiled -$(NONE)"
 	# @rm $(OBJ)
 	# @echo "$(ORANGE)		- Deleted object files$(NONE)"
@@ -48,7 +53,6 @@ clean:
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@make fclean -C minilibx-linux
 	@make fclean -C libft
 	@make fclean -C get_next_line
 	@rm -f $(NAME)
