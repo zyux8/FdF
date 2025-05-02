@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/29 19:30:17 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/02 19:59:46 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_map
 	int		**z_matrix;
 	int 	offset_x;
 	int 	offset_y;
+	int 	color;
 }	t_map;
 
 typedef struct s_vars
@@ -38,10 +39,36 @@ typedef struct s_vars
 	void	*img;
 }	t_vars;
 
+typedef struct s_point
+{
+	int x;
+	int y;
+	int z;
+	int iso_x;
+	int iso_y;
+}	t_point;
+
+typedef struct s_draw
+{
+	int diffx;
+	int diffy;
+	int step_x;
+	int step_y;
+}	t_draw;
+
+typedef struct s_iso
+{
+	float angle;
+	float centered_x;
+	float centered_y;
+	float projected_x;
+	float projected_y;
+}	t_iso;
+
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 800
-# define SCALE 3
-# define Z_SCALE 5
+# define SCALE 10
+# define Z_SCALE 10
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -52,14 +79,15 @@ typedef struct s_vars
 # include <fcntl.h>
 # include <math.h>
 
-void	draw_line(t_data *data, int xS, int yS, int xE, int yE, int color);
+void	draw_line(t_data *data, t_point *p1, t_point *p2, int color);
 void	my_pixel_put(t_data *data, int x, int y, int color);
 int		ft_count_lines(int fd);
-void	calculate_iso(t_map *map, int x, int y, int z, int *iso_x, int *iso_y);
+void	calculate_iso(t_map *map, t_point *point);
 int		get_width(char *line);
 void	read_map(int fd, t_map *map);
 int		main(int argc, char **argv);
 void	draw_map(t_data *data, t_map *map);
 void	free_z_matrix(int **z_matrix, int rows);
+void	get_color(t_map *map, int z);
 
 #endif // FDF_H
