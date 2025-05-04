@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/04/28 21:05:09 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/04 21:33:32 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ MLX_DIR = minilibx-linux
 LIBFT = libft/libft.a
 GNL = get_next_line/get_next_line.a
 SRC = $(addprefix src/, \
+	handler.c \
 	main.c \
+	more_utils.c \
 	utils.c )
 	
 OBJ = $(SRC:.c=.o)

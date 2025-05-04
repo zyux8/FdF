@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:59:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/02 20:08:26 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/04 18:30:44 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,22 @@ void	my_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_width(char *line)
+void	update_line_drawing(t_draw *draw, t_point *p1)
 {
-	char	**split;
-	int		width;
-
-	split = ft_split(line, ' ');
-	width = 0;
-	while (split[width])
-		width++;
-	ft_free_split(split);
-	return (width);
-}
-
-int	ft_count_lines(int fd)
-{
-	int		count;
-	char	*line;
-
-	count = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	if (draw->e2 > -draw->diffy)
 	{
-		count++;
-		free(line);
+		draw->err -= draw->diffy;
+		p1->iso_x += draw->step_x;
 	}
-	return (count);
+	if (draw->e2 < draw->diffx)
+	{
+		draw->err += draw->diffx;
+		p1->iso_y += draw->step_y;
+	}
 }
 
 void	draw_line(t_data *data, t_point *p1, t_point *p2, int color)
 {
-	int		err;
-	int		e2;
 	t_draw	draw;
 
 	draw.diffx = ft_conv_to_pos(p2->iso_x - p1->iso_x);
@@ -65,7 +50,7 @@ void	draw_line(t_data *data, t_point *p1, t_point *p2, int color)
 		draw.step_y = -1;
 	else
 		draw.step_y = 1;
-	err = draw.diffx - draw.diffy;
+	draw.err = draw.diffx - draw.diffy;
 	while (1)
 	{
 		if (p1->iso_x >= 0 && p1->iso_y >= 0 && p1->iso_x < WIN_WIDTH
@@ -73,17 +58,8 @@ void	draw_line(t_data *data, t_point *p1, t_point *p2, int color)
 			my_pixel_put(data, p1->iso_x, p1->iso_y, color);
 		if (p1->iso_x == p2->iso_x && p1->iso_y == p2->iso_y)
 			break ;
-		e2 = err * 2;
-		if (e2 > -draw.diffy)
-		{
-			err -= draw.diffy;
-			p1->iso_x += draw.step_x;
-		}
-		if (e2 < draw.diffx)
-		{
-			err += draw.diffx;
-			p1->iso_y += draw.step_y;
-		}
+		draw.e2 = draw.err * 2;
+		update_line_drawing(&draw, p1);
 	}
 }
 
@@ -121,17 +97,4 @@ void	get_color(t_map *map, int z)
 		map->color = 0x00FFFFFF;
 	else
 		map->color = 0x000000FF;
-}
-
-void	free_z_matrix(int **z_matrix, int rows)
-{
-	int	i;
-
-	i = 0;
-	while (i < rows)
-	{
-		free(z_matrix[i]);
-		i++;
-	}
-	free(z_matrix);
 }
