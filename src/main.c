@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/06 23:52:54 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/07 21:10:13 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	read_map(char *file, t_map *map)
 		free(line);
 		x++;
 	}
+	printf("%d\n",map->width);
+	printf("%d\n",map->height);
 	close(fd);
 }
 
@@ -43,6 +45,8 @@ void	draw_segment(t_data *data, t_map *map, int x1, int y1, int x2, int y2)
 {
 	t_point	p1;
 	t_point	p2;
+
+	printf("x1: %d, y1: %d, x2: %d, y2: %d\n", x1, y1, x2, y2);
 
 	p1 = (t_point){x1, y1, map->z_matrix[y1][x1], 0, 0};
 	p2 = (t_point){x2, y2, map->z_matrix[y2][x2], 0, 0};
@@ -58,8 +62,8 @@ void	draw_map(t_data *data, t_map *map)
 	int	y;
 
 	y = 0;
-	printf("width: %d\n", map->width);
-	printf("height: %d\n", map->height);
+	printf("width: %d\n", data->map->width);
+	printf("height: %d\n", data->map->height);
 	while (y < map->height)
 	{
 		x = 0;
@@ -88,19 +92,22 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	read_map(argv[1], &map);
+	printf("%d\n",map.width);
+	printf("%d\n",map.height);
 	if (!map.z_matrix)
 	{
 		printf("Error: Failed to read map\n");
 		return (1);
 	}
-	map.scale = WIN_WIDTH / (map.width * 2);
-	map.z_scale = map.scale / 2;
+	map.scale = 10;
+	map.z_scale = 5;
+	data.map = &map;
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "FdF");
 	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
 			&data.line_length, &data.endian);
-	draw_map(&data, &map);
+	draw_map(&data, data.map);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win, 17, 0, handle_destroy, &data);

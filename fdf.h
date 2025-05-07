@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/06 22:26:29 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/07 21:03:08 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	t_map	map;
+	t_map	*map;
 }	t_data;
 
 typedef struct s_point

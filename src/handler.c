@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 21:19:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/07 00:45:38 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/07 21:04:07 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,47 @@ int	handle_destroy(t_data *data)
 
 int	handle_key(int keycode, t_data *data)
 {
-	t_map	*map;
+	// t_map	*map;
 
-	map = &data->map;
+	// map = &data->map;
 	printf("Key pressed: %d\n", keycode);
 	printf("Width: %d, Height: %d, Scale: %d, Offset X: %d, Offset Y: %d\n",
-		data->map.width, data->map.height, data->map.scale,
-		data->map.offset_x, data->map.offset_y);
+		data->map->width, data->map->height, data->map->scale,
+		data->map->offset_x, data->map->offset_y);
 	if (keycode == KEY_ESC)
 	{
 		cleanup_and_exit(data);
 	}
 	else if (keycode == KEY_J)
 	{
-		data->map.scale += 1;
+		data->map->scale += 1;
 		redraw_map(data);
 	}
 	else if (keycode == KEY_K)
 	{
-		if (data->map.scale > 1)
-			data->map.scale -= 1;
+		if (data->map->scale > 1)
+			data->map->scale -= 1;
 		redraw_map(data);
 	}
 	else if (keycode == KEY_UP)
 	{
-		data->map.offset_y -= 10;
+		printf("UP WE GO\n");
+		data->map->offset_y -= 10;
 		redraw_map(data);
 	}
 	else if (keycode == KEY_DOWN)
 	{
-		data->map.offset_y += 10;
+		data->map->offset_y += 10;
 		redraw_map(data);
 	}
 	else if (keycode == KEY_LEFT)
 	{
-		data->map.offset_x -= 10;
+		data->map->offset_x -= 10;
 		redraw_map(data);
 	}
 	else if (keycode == KEY_RIGHT)
 	{
-		data->map.offset_x += 10;
+		data->map->offset_x += 10;
 		redraw_map(data);
 	}
 	return (0);
@@ -87,7 +88,7 @@ int	handle_key(int keycode, t_data *data)
 void redraw_map(t_data *data)
 {
     mlx_clear_window(data->mlx, data->win);
-    draw_map(data, &data->map);
+    draw_map(data, data->map);
 }
 
 void	cleanup_and_exit(t_data *data)
