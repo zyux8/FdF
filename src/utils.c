@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:59:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/04 18:30:44 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/06 21:11:10 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	calculate_iso(t_map *map, t_point *point)
 	float	sy;
 	t_iso	iso;
 
-	sx = point->x * SCALE;
-	sy = point->y * SCALE;
+	sx = point->x * map->scale;
+	sy = point->y * map->scale;
 	iso.angle = 0.523599f;
-	iso.centered_x = sx - (map->width - 1) * SCALE / 2;
-	iso.centered_y = sy - (map->height - 1) * SCALE / 2;
+	iso.centered_x = sx - (map->width - 1) * map->scale / 2;
+	iso.centered_y = sy - (map->height - 1) * map->scale / 2;
 	iso.projected_x = (iso.centered_x - iso.centered_y) * cos(iso.angle);
 	iso.projected_y = (iso.centered_x + iso.centered_y) * sin(iso.angle)
-		- (point->z * Z_SCALE) + 100;
+		- (point->z * map->z_scale) + 100;
 	point->iso_x = (int)iso.projected_x + WIN_WIDTH / 2;
 	point->iso_y = (int)iso.projected_y + WIN_HEIGHT / 2;
 }

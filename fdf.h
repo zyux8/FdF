@@ -6,21 +6,12 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/04 21:22:52 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/06 22:26:29 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #if !defined(FDF_H)
 #define FDF_H
-
-typedef struct	s_data 
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
 typedef struct s_map
 {
@@ -30,14 +21,21 @@ typedef struct s_map
 	int 	offset_x;
 	int 	offset_y;
 	int 	color;
+	int		scale;
+	int		z_scale;
 }	t_map;
 
-typedef struct s_vars
+typedef struct	s_data 
 {
+	void	*img;
 	void	*mlx;
 	void	*win;
-	void	*img;
-}	t_vars;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_map	map;
+}	t_data;
 
 typedef struct s_point
 {
@@ -69,8 +67,13 @@ typedef struct s_iso
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
-# define SCALE 20
-# define Z_SCALE 25
+# define KEY_J 106
+# define KEY_K 107
+# define KEY_ESC 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -94,7 +97,9 @@ void	update_line_drawing(t_draw *draw, t_point *p1);
 int		height_reopen(char *file, t_map *map);
 void	handle_read_error(t_map *map, char *line, char **split, int row, char *error_msg);
 int		process_line(char *line, t_map *map, int x);
-int		handle_keypress(int keycode, t_vars *vars);
-int		handle_destroy(t_vars *vars);
+int		handle_destroy(t_data *data);
+void	cleanup_and_exit(t_data *data);
+void	redraw_map(t_data *data);
+int		handle_key(int keycode, t_data *data);
 
 #endif // FDF_H

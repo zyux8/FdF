@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:23:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/04 21:17:06 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/07 00:26:07 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	free_z_matrix(int **z_matrix, int rows)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (i < rows)
+	x = 0;
+	while (x < rows)
 	{
-		free(z_matrix[i]);
-		i++;
+		free(z_matrix[x]);
+		x++;
 	}
 	free(z_matrix);
 }
@@ -87,7 +87,7 @@ int	process_line(char *line, t_map *map, int x)
 		ft_free_split(split);
 		return (0);
 	}
-		map->z_matrix[x] = malloc(sizeof(int) * current_width);
+	map->z_matrix[x] = malloc(sizeof(int) * current_width);
 	if (!map->z_matrix[x])
 	{
 		ft_free_split(split);

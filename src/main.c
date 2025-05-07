@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/04 21:21:37 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/06 23:52:54 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,10 @@ int	main(int argc, char **argv)
 {
 	t_map	map;
 	t_data	data;
-	t_vars	vars;
-	int		fd;
 
 	if (argc != 2)
 	{
 		printf("Usage: ./fdf <filename>\n");
-		return (1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Error opening file");
 		return (1);
 	}
 	read_map(argv[1], &map);
@@ -101,16 +93,17 @@ int	main(int argc, char **argv)
 		printf("Error: Failed to read map\n");
 		return (1);
 	}
-	close(fd);
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, WIN_WIDTH, WIN_HEIGHT, "FdF");
-	data.img = mlx_new_image(vars.mlx, WIN_WIDTH, WIN_HEIGHT);
+	map.scale = WIN_WIDTH / (map.width * 2);
+	map.z_scale = map.scale / 2;
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "FdF");
+	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
 			&data.line_length, &data.endian);
 	draw_map(&data, &map);
-	mlx_put_image_to_window(vars.mlx, vars.win, data.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L << 0, handle_keypress, &data);         // Key press
-	mlx_hook(vars.win, 17, 0, handle_destroy, &data);               // Window close (X)
-	mlx_loop(vars.mlx);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	mlx_hook(data.win, 2, 1L << 0, handle_key, &data);
+	mlx_hook(data.win, 17, 0, handle_destroy, &data);
+	mlx_loop(data.mlx);
 	return (0);
 }
