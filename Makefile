@@ -6,22 +6,26 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/04 21:33:32 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/12 00:01:18 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-CFLAGS = -Wall -Wextra -O3 -Iincludes -I/usr/include -Iminilibx-linux
+CFLAGS = -Wall -Wextra -Werror -O3 -Iincludes -I/usr/include -Iminilibx-linux
 LIBFT_DIR = libft
 GNL_DIR = get_next_line
+PRINTF_DIR = ft_printf
 MLX_DIR = minilibx-linux
 LIBFT = libft/libft.a
 GNL = get_next_line/get_next_line.a
+PRINTF = ft_printf/ftprintf.a
 SRC = $(addprefix src/, \
 	handler.c \
 	main.c \
 	more_utils.c \
-	utils.c )
+	utils.c \
+	even_more_utils.c \
+	again_utils.c)
 	
 OBJ = $(SRC:.c=.o)
 	
@@ -39,8 +43,9 @@ $(NAME): $(OBJ)
 	@echo "$(ORANGE)		- Compiling $(NAME)...$(NONE)"
 	@make -C libft --silent
 	@make -C get_next_line --silent
+	@make -C ft_printf --silent
 	@make -C minilibx-linux --silent
-	gcc $(CFLAGS) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR) $(OBJ) $(GNL) $(LIBFT) -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -o $(NAME)
+	@gcc $(CFLAGS) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR) $(OBJ) $(GNL) $(LIBFT) $(PRINTF) -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -o $(NAME)
 	@echo "$(GREEN)		- $(NAME) Compiled -$(NONE)"
 	# @rm $(OBJ)
 	# @echo "$(ORANGE)		- Deleted object files$(NONE)"
@@ -52,12 +57,16 @@ clean:
 	@make clean -C minilibx-linux
 	@make clean -C libft
 	@make clean -C get_next_line
+	@make clean -C ft_printf
 	@rm -rf $(OBJ)
+	@echo "$(ORANGE)		- Deleted object files$(NONE)"
 
 fclean: clean
 	@make fclean -C libft
 	@make fclean -C get_next_line
+	@make fclean -C ft_printf
 	@rm -f $(NAME)
+	@echo "$(ORANGE)		- Deleted $(NAME)$(NONE)"
 
 re: fclean all
 

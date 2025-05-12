@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:23:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/07 00:26:07 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/11 18:23:21 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ int	ft_count_lines(int fd)
 	char	*line;
 
 	count = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
 	{
 		count++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (count);
 }
 
 int	height_reopen(char *file, t_map *map)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Error opening file: %s\n", file);
+		ft_printf("Error opening file: %s\n", file);
 		return (0);
 	}
 	map->height = ft_count_lines(fd);
@@ -55,10 +57,8 @@ int	height_reopen(char *file, t_map *map)
 	return (fd);
 }
 
-void	handle_read_error(t_map *map, char *line, char **split, int row, char *error_msg)
+void	handle_read_error(t_map *map, char *line, char **split, int row)
 {
-	if (error_msg)
-		printf("%s\n", error_msg);
 	if (line)
 		free(line);
 	if (split)
@@ -68,37 +68,28 @@ void	handle_read_error(t_map *map, char *line, char **split, int row, char *erro
 	map->z_matrix = NULL;
 }
 
-int	process_line(char *line, t_map *map, int x)
+int	process_z_value(char *line, t_map *map, int x)
 {
 	char	**split;
 	int		y;
-	int		current_width;
+	int		width;
 
 	split = ft_split(line, ' ');
 	if (!split)
 		return (0);
-	current_width = 0;
-	while (split[current_width])
-		current_width++;
+	width = 0;
+	while (split[width])
+		width++;
 	if (x == 0)
-		map->width = current_width;
-	else if (current_width != map->width)
-	{
-		ft_free_split(split);
-		return (0);
-	}
-	map->z_matrix[x] = malloc(sizeof(int) * current_width);
+		map->width = width;
+	if (width != map->width)
+		return (ft_free_split(split), 0);
+	map->z_matrix[x] = malloc(sizeof(int) * width);
 	if (!map->z_matrix[x])
-	{
-		ft_free_split(split);
-		return (0);
-	}
-	y = 0;
-	while (y < current_width)
-	{
+		return (ft_free_split(split), 0);
+	y = -1;
+	while (++y < width)
 		map->z_matrix[x][y] = ft_atoi(split[y]);
-		y++;
-	}
 	ft_free_split(split);
 	return (1);
 }
