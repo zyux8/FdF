@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   more_utils.c                                       :+:      :+:    :+:   */
+/*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/04 18:23:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/11 18:23:21 by ohaker           ###   ########.fr       */
+/*   Created: 2025/05/11 17:22:45 by ohaker            #+#    #+#             */
+/*   Updated: 2025/05/12 17:52:01 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
-void	free_z_matrix(int **z_matrix, int rows)
-{
-	int	x;
-
-	x = 0;
-	while (x < rows)
-	{
-		free(z_matrix[x]);
-		x++;
-	}
-	free(z_matrix);
-}
 
 int	ft_count_lines(int fd)
 {
@@ -55,17 +42,6 @@ int	height_reopen(char *file, t_map *map)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	return (fd);
-}
-
-void	handle_read_error(t_map *map, char *line, char **split, int row)
-{
-	if (line)
-		free(line);
-	if (split)
-		ft_free_split(split);
-	if (map->z_matrix)
-		free_z_matrix(map->z_matrix, row);
-	map->z_matrix = NULL;
 }
 
 int	process_z_value(char *line, t_map *map, int x)

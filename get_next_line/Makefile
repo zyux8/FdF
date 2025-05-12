@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 22:24:49 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/09 17:46:08 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/12 18:26:03 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,11 @@ CFLAGS  = -Wall -Wextra -Werror
 SRC = get_next_line.c \
 	get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
-# LIBFT_DIR = ../libft
-# LIBFT = -L$(LIBFT_DIR) -lft 
 
 .SILENT:
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -o $@
-	# @gcc $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
 	
 all: $(NAME)
 

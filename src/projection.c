@@ -1,67 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 13:59:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 00:25:25 by ohaker           ###   ########.fr       */
+/*   Created: 2025/05/04 18:23:56 by ohaker            #+#    #+#             */
+/*   Updated: 2025/05/12 17:53:14 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
-void	my_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	update_line_drawing(t_draw *draw, t_point *p1)
-{
-	if (draw->e2 > -draw->diffy)
-	{
-		draw->err -= draw->diffy;
-		p1->iso_x += draw->step_x;
-	}
-	if (draw->e2 < draw->diffx)
-	{
-		draw->err += draw->diffx;
-		p1->iso_y += draw->step_y;
-	}
-}
-
-void	draw_line(t_data *data, t_point *p1, t_point *p2, int color)
-{
-	t_draw	draw;
-
-	draw.diffx = ft_conv_to_pos(p2->iso_x - p1->iso_x);
-	draw.diffy = ft_conv_to_pos(p2->iso_y - p1->iso_y);
-	if (p2->iso_x < p1->iso_x)
-		draw.step_x = -1;
-	else
-		draw.step_x = 1;
-	if (p2->iso_y < p1->iso_y)
-		draw.step_y = -1;
-	else
-		draw.step_y = 1;
-	draw.err = draw.diffx - draw.diffy;
-	while (1)
-	{
-		if (p1->iso_x >= 0 && p1->iso_y >= 0 && p1->iso_x < WIN_WIDTH
-			&& p1->iso_y < WIN_HEIGHT)
-			my_pixel_put(data, p1->iso_x, p1->iso_y, color);
-		if (p1->iso_x == p2->iso_x && p1->iso_y == p2->iso_y)
-			break ;
-		draw.e2 = draw.err * 2;
-		update_line_drawing(&draw, p1);
-	}
-}
 
 void	calculate_iso(t_map *map, t_point *point)
 {

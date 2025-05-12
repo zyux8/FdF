@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/12 00:01:18 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/12 17:57:32 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,13 @@ LIBFT = libft/libft.a
 GNL = get_next_line/get_next_line.a
 PRINTF = ft_printf/ftprintf.a
 SRC = $(addprefix src/, \
+	cleanup.c \
+	draw_utils.c \
 	handler.c \
 	main.c \
-	more_utils.c \
-	utils.c \
-	even_more_utils.c \
-	again_utils.c)
+	map_parser.c \
+	projection.c \
+	render.c)
 	
 OBJ = $(SRC:.c=.o)
 	
@@ -47,8 +48,6 @@ $(NAME): $(OBJ)
 	@make -C minilibx-linux --silent
 	@gcc $(CFLAGS) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR) $(OBJ) $(GNL) $(LIBFT) $(PRINTF) -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -o $(NAME)
 	@echo "$(GREEN)		- $(NAME) Compiled -$(NONE)"
-	# @rm $(OBJ)
-	# @echo "$(ORANGE)		- Deleted object files$(NONE)"
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -o $@

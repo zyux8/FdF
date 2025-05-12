@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:13:44 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:25:39 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void	read_map(char *file, t_map *map)
 		return ;
 	process_lines(fd, map);
 	close(fd);
-}
-
-void	draw_segment(t_data *data, t_map *map, t_point *p1, t_point *p2)
-{
-	get_color(map, p1->z);
-	calculate_iso(map, p1);
-	calculate_iso(map, p2);
-	draw_line(data, p1, p2, map->color);
 }
 
 void	draw_map(t_data *data, t_map *map)
@@ -51,6 +43,45 @@ void	draw_map(t_data *data, t_map *map)
 	}
 }
 
+void	init_data(t_data *data, t_map *map)
+{
+	map->scale = WIN_WIDTH / (map->width * 2);
+	map->z_scale = (map->scale / 3) * 2;
+	data->map = map;
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "FdF");
+	data->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
+}
+
+void	process_lines(int fd, t_map *map)
+{
+	char	*line;
+	int		x;
+
+	x = 0;
+	line = get_next_line(fd);
+	if (!line)
+	{
+		handle_read_error(map, line, NULL, x);
+		ft_printf("Error reading line");
+		return ;
+	}
+	while (line)
+	{
+		if (!process_z_value(line, map, x))
+		{
+			handle_read_error(map, line, NULL, x);
+			ft_printf("Error processing line");
+			return ;
+		}
+		free(line);
+		x++;
+		line = get_next_line(fd);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -62,8 +93,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	read_map(argv[1], &map);
-	printf("%d\n",map.width);
-	printf("%d\n",map.height);
 	if (!map.z_matrix)
 	{
 		ft_printf("Error: Failed to read map\n");

@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:31:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/29 18:44:57 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:25:58 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ char	*get_next_line(int fd)
 // 	int		fd;
 // 	char	*line;
 
-// 	fd = open("/home/ohaker/Projects/get_next_line/read_error.txt", O_RDONLY);
+// 	fd = open("../test_maps/empty.fdf", O_RDONLY);
 // 	while ((line = get_next_line(fd)) != NULL)
 // 	{
 // 		printf("Line: %s", line);

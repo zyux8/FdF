@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   again_utils.c                                      :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 23:41:16 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:09:55 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 17:53:21 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	redraw_map(t_data *data)
+void	handle_read_error(t_map *map, char *line, char **split, int row)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
-	draw_map(data, data->map);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	if (line)
+		free(line);
+	if (split)
+		ft_free_split(split);
+	if (map->z_matrix)
+		free_z_matrix(map->z_matrix, row);
+	map->z_matrix = NULL;
 }
 
 void	cleanup_and_exit(t_data *data)
@@ -38,14 +39,27 @@ void	cleanup_and_exit(t_data *data)
 	exit(0);
 }
 
-void	init_data(t_data *data, t_map *map)
+void	free_z_matrix(int **z_matrix, int rows)
 {
-	map->scale = WIN_WIDTH / (map->width * 2);
-	map->z_scale = (map->scale / 3) * 2;
-	data->map = map;
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "FdF");
-	data->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
+	int	x;
+
+	x = 0;
+	while (x < rows)
+	{
+		free(z_matrix[x]);
+		x++;
+	}
+	free(z_matrix);
+}
+
+int	alloc_z_matrix(t_map *map)
+{
+	map->z_matrix = malloc(sizeof(int *) * map->height);
+	if (!map->z_matrix)
+	{
+		handle_read_error(map, NULL, NULL, map->height);
+		ft_printf("Error allocating memory for z_matrix");
+		return (0);
+	}
+	return (1);
 }

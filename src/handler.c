@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 21:19:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:12:40 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:50:24 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	handle_destroy(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
+	// mlx_destroy_image(data->mlx, data->img);
+	// mlx_destroy_window(data->mlx, data->win);
+	// mlx_destroy_display(data->mlx);
+	// free(data->mlx);
+	// exit(0);
+	cleanup_and_exit(data);
 	return (0);
 }
 
-
-int handle_zoom(int keycode, t_data *data)
+int	handle_zoom(int keycode, t_data *data)
 {
 	if (keycode == KEY_J)
 		data->map->scale += 1;
@@ -36,7 +36,7 @@ int handle_zoom(int keycode, t_data *data)
 	return (0);
 }
 
-int handle_z(int keycode, t_data *data)
+int	handle_z(int keycode, t_data *data)
 {
 	if (keycode == KEY_I)
 		data->map->z_scale += 1;

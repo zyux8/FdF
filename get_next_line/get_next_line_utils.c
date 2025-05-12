@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:31:25 by ohaker            #+#    #+#             */
-/*   Updated: 2025/04/29 17:03:12 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 18:15:07 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strjoin_gnl(char *str1, char *str2)
 	char	*temp;
 
 	if (!str1)
-		str1 = ft_strdup("");
+		str1 = ft_strdup_gnl("");
 	if (!str2)
 		str2 = "";
 	tlen = ft_strlen_gnl(str1) + ft_strlen_gnl(str2);
