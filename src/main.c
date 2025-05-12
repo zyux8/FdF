@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 18:25:39 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 19:15:45 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	process_lines(int fd, t_map *map)
 	if (!line)
 	{
 		handle_read_error(map, line, NULL, x);
-		ft_printf("Error reading line");
+		ft_printf("Error reading line\n");
 		return ;
 	}
 	while (line)
@@ -73,7 +73,7 @@ void	process_lines(int fd, t_map *map)
 		if (!process_z_value(line, map, x))
 		{
 			handle_read_error(map, line, NULL, x);
-			ft_printf("Error processing line");
+			ft_printf("Error processing line\n");
 			return ;
 		}
 		free(line);
