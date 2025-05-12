@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 01:58:57 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 17:16:58 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_map
 	int 	color;
 	int		scale;
 	int		z_scale;
-	// float	angle_z;
 }	t_map;
 
 typedef struct	s_data 
@@ -111,7 +110,6 @@ int		alloc_z_matrix(t_map *map);
 void	process_lines(int fd, t_map *map);
 void	draw_segment(t_data *data, t_map *map, t_point *p1, t_point *p2);
 void	draw_point_links(t_data *data, t_map *map, int x, int y);
-// void	rotate_z(t_point *p, float angle, t_map *map);
 void 	cleanup_and_exit(t_data *data);
 
 #endif // FDF_H

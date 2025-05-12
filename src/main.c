@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 02:04:08 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/12 17:13:44 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	read_map(char *file, t_map *map)
 
 	fd = height_reopen(file, map);
 	if (!alloc_z_matrix(map))
-	{
-		// free(map->z_matrix);
 		return ;
-	}
 	process_lines(fd, map);
 	close(fd);
 }
@@ -65,6 +62,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	read_map(argv[1], &map);
+	printf("%d\n",map.width);
+	printf("%d\n",map.height);
 	if (!map.z_matrix)
 	{
 		ft_printf("Error: Failed to read map\n");
