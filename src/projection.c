@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:23:56 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:53:14 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:31:02 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	calculate_iso(t_map *map, t_point *point)
 	iso.projected_x = (iso.centered_x - iso.centered_y) * cos(iso.angle);
 	iso.projected_y = (iso.centered_x + iso.centered_y) * sin(iso.angle)
 		- (point->z * map->z_scale);
-	point->iso_x = (int)iso.projected_x + WIN_WIDTH / 2;
-	point->iso_y = (int)iso.projected_y + WIN_HEIGHT / 2;
+	point->iso_x = (int)iso.projected_x + WIN_WIDTH / 2 + map->offset_x;
+	point->iso_y = (int)iso.projected_y + WIN_HEIGHT / 2 + map->offset_y;
 }
 
 void	get_color(t_map *map, int z)

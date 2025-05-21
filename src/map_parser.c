@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:22:45 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:52:01 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:56:20 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ int	height_reopen(char *file, t_map *map)
 	return (fd);
 }
 
+int	is_max(char **split)
+{
+	int	x;
+
+	x = 0;
+	while (split[x])
+	{
+		if (ft_atoi(split[x]) < INT_MIN || ft_atoi(split[x]) > INT_MAX)
+			return (1);
+		x++;
+	}
+	return (0);
+}
+
 int	process_z_value(char *line, t_map *map, int x)
 {
 	char	**split;
@@ -58,7 +72,7 @@ int	process_z_value(char *line, t_map *map, int x)
 		width++;
 	if (x == 0)
 		map->width = width;
-	if (width != map->width)
+	if (width != map->width || is_max(split))
 		return (ft_free_split(split), 0);
 	map->z_matrix[x] = malloc(sizeof(int) * width);
 	if (!map->z_matrix[x])

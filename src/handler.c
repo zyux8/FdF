@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 21:19:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/20 21:41:34 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:14:10 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,34 @@ int	handle_destroy(t_data *data)
 
 int	handle_zoom(int keycode, t_data *data)
 {
-	if (keycode == KEY_J)
-	{
-		if (data->map->scale < 20)
-			data->map->scale += 1;
-	}
-	else if (keycode == KEY_K)
-	{
-		if (data->map->scale > 1)
-			data->map->scale -= 1;
-	}
+	if (keycode == KEY_J && data->map->scale < ((WIN_WIDTH / data->map->width) * 2))
+		data->map->scale += 1;
+	else if (keycode == KEY_K && (data->map->scale > 5))
+		data->map->scale -= 1;
 	redraw_map(data);
 	return (0);
 }
 
 int	handle_z(int keycode, t_data *data)
 {
-	if (keycode == KEY_I)
-	{
-		if (data->map->z_scale < 20)
-			data->map->z_scale += 1;
-	}
-	else if (keycode == KEY_O)
-	{
-		if (data->map->z_scale > 1)
-			data->map->z_scale -= 1;
-	}
+	if (keycode == KEY_I && (data->map->z_scale < (data->map->scale / 2)))
+		data->map->z_scale += 1;
+	else if (keycode == KEY_O && (data->map->z_scale > 1))
+		data->map->z_scale -= 1;
+	redraw_map(data);
+	return (0);
+}
+
+int	handle_offset(int keycode, t_data *data)
+{
+	if (keycode == KEY_UP && (data->map->offset_y > -(WIN_HEIGHT / 2)))
+		data->map->offset_y -= 10;
+	else if (keycode == KEY_DOWN && (data->map->offset_y < (WIN_HEIGHT / 2)))
+		data->map->offset_y += 10;
+	else if (keycode == KEY_RIGHT && (data->map->offset_x < (WIN_WIDTH / 2)))
+		data->map->offset_x += 10;
+	else if (keycode == KEY_LEFT && (data->map->offset_x > -(WIN_WIDTH / 2)))
+		data->map->offset_x -= 10;
 	redraw_map(data);
 	return (0);
 }
@@ -58,5 +60,8 @@ int	handle_key(int keycode, t_data *data)
 		handle_zoom(keycode, data);
 	else if (keycode == KEY_I || keycode == KEY_O)
 		handle_z(keycode, data);
+	else if (keycode == KEY_UP || keycode == KEY_DOWN || keycode == KEY_RIGHT
+		|| keycode == KEY_LEFT)
+		handle_offset(keycode, data);
 	return (0);
 }

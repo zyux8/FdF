@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 17:53:27 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:42:32 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ typedef struct s_iso
 # define KEY_O 111
 # define KEY_N 110
 # define KEY_M 109
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
 #ifndef PI
     #define PI 3.14159265358979323846
 #endif

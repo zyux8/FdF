@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/12 17:57:32 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/21 15:29:58 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ GNL = get_next_line/get_next_line.a
 PRINTF = ft_printf/ftprintf.a
 SRC = $(addprefix src/, \
 	cleanup.c \
-	draw_utils.c \
+	render_utils.c \
 	handler.c \
 	main.c \
 	map_parser.c \
