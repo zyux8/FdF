@@ -6,21 +6,24 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/21 17:59:15 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 19:57:02 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	read_map(char *file, t_map *map)
+int	read_map(char *file, t_map *map)
 {
 	int	fd;
 
 	fd = height_reopen(file, map);
+	if (fd < 0)
+		return (1);
 	if (!alloc_z_matrix(map))
-		return ;
+		return (1);
 	process_lines(fd, map);
 	close(fd);
+	return (0);
 }
 
 void	draw_map(t_data *data, t_map *map)
@@ -96,8 +99,7 @@ int	main(int argc, char **argv)
 		ft_printf("Usage: ./fdf <filename>\n");
 		return (1);
 	}
-	read_map(argv[1], &map);
-	if (!map.z_matrix)
+	if (read_map(argv[1], &map) || !map.z_matrix)
 	{
 		ft_printf("Error: Failed to read map\n");
 		return (1);

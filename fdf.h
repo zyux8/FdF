@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/21 15:42:32 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 20:10:52 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,42 +92,42 @@ typedef struct s_iso
 # include <fcntl.h>
 # include <math.h>
 
+//main.c Core of the project
 int		main(int argc, char **argv);
 void	init_data(t_data *data, t_map *map);
-void	read_map(char *file, t_map *map);
+int		read_map(char *file, t_map *map);
 void	draw_map(t_data *data, t_map *map);
 void	process_lines(int fd, t_map *map);
-//main.c Core of the project
 
+//draw_utils.c Helpers for drawing lines
 void	my_pixel_put(t_data *data, int x, int y, int color);
 void	update_line_drawing(t_draw *draw, t_point *p1);
-//draw_utils.c Helpers for drawing lines
 
+//projection.c Functions for isometric projection
 void	get_color(t_map *map, int z);
 void	calculate_iso(t_map *map, t_point *point);
-//projection.c Functions for isometric projection
 
+//map_parser.c Functions for parsing the map
 int		height_reopen(char *file, t_map *map);
 int		process_z_value(char *line, t_map *map, int x);
 int		ft_count_lines(int fd);
-//map_parser.c Functions for parsing the map
 
+//cleanup.c Functions for memory management
 void	handle_read_error(t_map *map, char *line, char **split, int row);
 void	cleanup_and_exit(t_data *data);
 void	free_z_matrix(int **z_matrix, int rows);
 int		alloc_z_matrix(t_map *map);
-//cleanup.c Functions for memory management
 
+//render.c Functions for rendering the map
 void	draw_line(t_data *data, t_point *p1, t_point *p2, int color);
 void	redraw_map(t_data *data);
 void	draw_segment(t_data *data, t_map *map, t_point *p1, t_point *p2);
 void	draw_point_links(t_data *data, t_map *map, int x, int y);
-//render.c Functions for rendering the map
 
+//handler.c Functions for handling events
 int		handle_destroy(t_data *data);
 int		handle_key(int keycode, t_data *data);
 int		handle_zoom(int keycode, t_data *data);
 int		handle_z(int keycode, t_data *data);
-//handler.c Functions for handling events
 
 #endif // FDF_H

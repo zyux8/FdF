@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:22:45 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/21 17:56:20 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/21 19:56:05 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	height_reopen(char *file, t_map *map)
 	if (fd < 0)
 	{
 		ft_printf("Error opening file: %s\n", file);
-		return (0);
+		return (fd);
 	}
 	map->height = ft_count_lines(fd);
 	close(fd);

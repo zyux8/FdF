@@ -6,12 +6,12 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/21 15:29:58 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/21 19:36:11 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-CFLAGS = -Wall -Wextra -Werror -O3 -Iincludes -I/usr/include -Iminilibx-linux
+CFLAGS = -Wall -Wextra -Werror -O3 -Iincludes -I/usr/include -Iminilibx-linux -g
 LIBFT_DIR = libft
 GNL_DIR = get_next_line
 PRINTF_DIR = ft_printf
