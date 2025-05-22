@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 21:19:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/21 18:14:10 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/22 22:29:11 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	handle_destroy(t_data *data)
 
 int	handle_zoom(int keycode, t_data *data)
 {
-	if (keycode == KEY_J && data->map->scale < ((WIN_WIDTH / data->map->width) * 2))
+	if (keycode == KEY_J
+		&& data->map->scale < ((WIN_WIDTH / data->map->width) * 3))
 		data->map->scale += 1;
-	else if (keycode == KEY_K && (data->map->scale > 5))
+	else if (keycode == KEY_K && (data->map->scale > 1))
 		data->map->scale -= 1;
 	redraw_map(data);
 	return (0);

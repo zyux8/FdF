@@ -6,7 +6,7 @@
 #    By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 18:17:18 by ohaker            #+#    #+#              #
-#    Updated: 2025/05/21 19:36:11 by ohaker           ###   ########.fr        #
+#    Updated: 2025/05/22 22:00:37 by ohaker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,4 +83,7 @@ mygit:
 		echo "$(GREEN)		- Pushed to git$(NONE)"; \
 	fi
 
-.PHONY: all clean fclean re mygit
+format:
+	PATH="$$HOME/.local/bin:$$PATH" find ./ -type f -name "*.[ch]"  -exec c_formatter_42 {} \;
+
+.PHONY: all clean fclean re mygit format

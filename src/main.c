@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:40 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/21 19:57:02 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/22 22:30:26 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	init_data(t_data *data, t_map *map)
 	map->z_scale = (map->scale / 3) * 2;
 	if (map->z_scale > 20)
 		map->z_scale = 20;
+	else if (map->z_scale < 1)
+		map->z_scale = 1;
 	map->offset_x = 0;
 	map->offset_y = 0;
 	data->map = map;
@@ -106,7 +108,6 @@ int	main(int argc, char **argv)
 	}
 	init_data(&data, &map);
 	draw_map(&data, &map);
-	printf("Map width: %d\n", map.width);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win, 17, 0, handle_destroy, &data);

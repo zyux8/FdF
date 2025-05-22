@@ -13,11 +13,11 @@
 #if !defined(FT_PRINTF_H)
 # define FT_PRINTF_H
 # include "../libft/libft.h"
+# include <limits.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 int		ft_def_format(const char format, va_list args, int y);
 int		ft_printf(const char *format, ...);

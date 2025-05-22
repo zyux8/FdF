@@ -6,12 +6,12 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:31:04 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/12 18:25:58 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/22 22:02:27 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "../libft/libft.h"
+#include "get_next_line.h"
 
 char	*ft_read_line(int fd)
 {
@@ -101,16 +101,13 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*new_data;
 	static char	*leftover;
-	// char 		*temp;
 
-	// temp = leftover;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	new_data = ft_read_line(fd);
 	if (!new_data)
 		return (NULL);
 	leftover = ft_strjoin_gnl(leftover, new_data);
-	// free(temp);
 	free(new_data);
 	if (!leftover)
 		return (NULL);
@@ -121,7 +118,7 @@ char	*get_next_line(int fd)
 
 // int main(void)
 // {
-// 	return 0;
+// 	return (0);
 // }
 
 // int	main(void)

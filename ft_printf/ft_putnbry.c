@@ -40,9 +40,9 @@ int	ft_putnbry(int n, int y)
 
 // int	main(void)
 // {
-// 	printf("return of ft_putnbry: %i\n", ft_putnbry(50, 0));
-// 	printf("return of ft_putnbry: %i\n", ft_putnbry(0, 0));
-// 	printf("return of ft_putnbry: %i\n", ft_putnbry(-2147483648, 0));
-// 	printf("return of ft_putnbry: %i\n", ft_putnbry(-50, 0));
-// 	printf("return of ft_putnbry: %i\n", ft_putnbry(2147483647, 0));
+// 	printf("return (of ft_putnbry: %i\n", ft_putnbry(50, 0)));
+// 	printf("return (of ft_putnbry: %i\n", ft_putnbry(0, 0)));
+// 	printf("return (of ft_putnbry: %i\n", ft_putnbry(-2147483648, 0)));
+// 	printf("return (of ft_putnbry: %i\n", ft_putnbry(-50, 0)));
+// 	printf("return (of ft_putnbry: %i\n", ft_putnbry(2147483647, 0)));
 // }

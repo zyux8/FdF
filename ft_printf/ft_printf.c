@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:01:06 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/09 19:13:37 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/22 22:02:10 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int	ft_printf(const char *format, ...)
 {
-	// int		x;
 	int		y;
 	va_list	args;
 
-	// x = 0;
 	y = 0;
 	va_start(args, format);
 	while (*format)
