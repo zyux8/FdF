@@ -6,7 +6,7 @@
 /*   By: ohaker <ohaker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:11:02 by ohaker            #+#    #+#             */
-/*   Updated: 2025/05/22 22:03:27 by ohaker           ###   ########.fr       */
+/*   Updated: 2025/05/23 23:48:34 by ohaker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_map
 	int		offset_x;
 	int		offset_y;
 	int		color;
-	int		scale;
-	int		z_scale;
+	float	scale;
+	float	z_scale;
 }			t_map;
 
 typedef struct s_data
